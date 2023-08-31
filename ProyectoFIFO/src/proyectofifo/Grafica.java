@@ -7,6 +7,7 @@ package proyectofifo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,8 +24,9 @@ public class Grafica extends javax.swing.JFrame {
      */
     public Grafica() {
         initComponents();
-        
-        
+        setTitle("Simulacion Calendarizacion");
+        PanelSimulacion.setLayout(new GridLayout(0, 3));
+       
     }
 
 
@@ -60,6 +62,7 @@ public class Grafica extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
+        agregarProceso = new javax.swing.JButton();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,7 +123,6 @@ public class Grafica extends javax.swing.JFrame {
         Rafaga.setText("Rafaga:");
         jPanel1.add(Rafaga, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 90, 20));
 
-        rafaProceso.setEditable(false);
         rafaProceso.setBackground(new java.awt.Color(255, 255, 255));
         rafaProceso.setFont(new java.awt.Font("Perpetua", 1, 14)); // NOI18N
         rafaProceso.setForeground(new java.awt.Color(0, 0, 0));
@@ -146,13 +148,18 @@ public class Grafica extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 330, 110));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 330, 110));
 
         IniciarSimulacion.setBackground(new java.awt.Color(0, 0, 0));
         IniciarSimulacion.setFont(new java.awt.Font("Perpetua Titling MT", 1, 18)); // NOI18N
         IniciarSimulacion.setForeground(new java.awt.Color(255, 255, 255));
         IniciarSimulacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/icons8-play-30.png"))); // NOI18N
         IniciarSimulacion.setText("Simular");
+        IniciarSimulacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IniciarSimulacionActionPerformed(evt);
+            }
+        });
         jPanel1.add(IniciarSimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 640, 170, 50));
 
         spinnerQuantum.setBorder(new javax.swing.border.MatteBorder(null));
@@ -166,7 +173,7 @@ public class Grafica extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Perpetua Titling MT", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Tabla de procesos");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Perpetua Titling MT", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -197,6 +204,17 @@ public class Grafica extends javax.swing.JFrame {
         jTextField3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 820, 110, -1));
 
+        agregarProceso.setBackground(new java.awt.Color(0, 0, 0));
+        agregarProceso.setFont(new java.awt.Font("Perpetua Titling MT", 1, 14)); // NOI18N
+        agregarProceso.setForeground(new java.awt.Color(255, 255, 255));
+        agregarProceso.setText("AGregar proceso");
+        agregarProceso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarProcesoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(agregarProceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, 180, 30));
+
         Fondo.setFont(new java.awt.Font("Perpetua Titling MT", 1, 18)); // NOI18N
         Fondo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Fondo2.jpg"))); // NOI18N
@@ -220,6 +238,16 @@ public class Grafica extends javax.swing.JFrame {
     private void rafaProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rafaProcesoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rafaProcesoActionPerformed
+
+    private void agregarProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProcesoActionPerformed
+        // TODO add your handling code here:
+        agregarProceso();
+        borrar();
+    }//GEN-LAST:event_agregarProcesoActionPerformed
+
+    private void IniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarSimulacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IniciarSimulacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,6 +285,41 @@ public class Grafica extends javax.swing.JFrame {
         });
     }
 
+private void agregarProceso() {
+    int num = Integer.parseInt(numProceso.getText());
+    String nombre = nomProceso.getText();
+    int rafaga = Integer.parseInt(rafaProceso.getText());
+
+    JPanel processSquare = new JPanel();
+    processSquare.setSize(new Dimension(50, 50));
+    processSquare.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    processSquare.setBackground(Color.cyan);
+    processSquare.setLayout(new BorderLayout());
+    
+    JLabel numLabel = new JLabel("P: " + num);
+    JLabel nameLabel = new JLabel(nombre);
+    JLabel burstLabel = new JLabel("Rafaga: "+rafaga);
+    
+    processSquare.add(numLabel, BorderLayout.NORTH);
+    processSquare.add(nameLabel, BorderLayout.CENTER);
+    processSquare.add(burstLabel, BorderLayout.SOUTH);
+    
+
+    PanelSimulacion.setBackground(Color.white);
+    PanelSimulacion.add(processSquare);
+
+    // Forzar el repintado del panel
+    PanelSimulacion.revalidate(); // Revalida la estructura del panel
+    PanelSimulacion.repaint();    // Vuelve a pintar el panel en la pantalla
+}
+private void borrar(){
+    numProceso.setText("");
+    nomProceso.setText("");
+    rafaProceso.setText("");
+}
+
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Fondo;
     private javax.swing.JButton IniciarSimulacion;
@@ -266,6 +329,7 @@ public class Grafica extends javax.swing.JFrame {
     private javax.swing.JLabel Rafaga;
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel addProceso;
+    private javax.swing.JButton agregarProceso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
